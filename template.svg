@@ -71,7 +71,7 @@ src: url("data:application/font-woff;charset=utf-8;base64,{{ font_b64 }}") forma
 <text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="620" y="543.188">{{ exercises[9]["name"] }}</tspan></text>
 <text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="574.278">{{ exercises[9]["sets"] }}</tspan></text>
 {% endif %}
-<text fill="white" fill-opacity="0.35" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="14" letter-spacing="0em"><tspan x="50" y="625.182">Data collected via GymRun app and Dropbox backup. 1A23 Studio is not affiliated with GymRun Team or Dropbox Inc.</tspan></text>
+<text fill="white" fill-opacity="0.35" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="14" letter-spacing="0em"><tspan x="50" y="625.182">Data collected via GymRun app and Google Drive backup. 1A23 Studio is not affiliated with GymRun Team or Alphabet Inc.</tspan></text>
 <defs>
 <clipPath id="clip0_1_3">
 <rect width="152.581" height="54" fill="white" transform="translate(50 50)"/>
