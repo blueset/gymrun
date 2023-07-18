@@ -1,0 +1,80 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+<style>
+@font-face {
+font-family: "Inter Variable";
+font-weight: 100 900;
+font-display: swap;
+font-style: normal;
+src: url("data:application/font-woff;charset=utf-8;base64,{{ font_b64 }}") format("woff2-variations");
+}
+</style>
+<rect width="1200" height="675" fill="#00161F"/>
+<rect x="884" y="50" width="266" height="54" rx="8" fill="#F2A711"/>
+<text fill="#00161F" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="32" font-weight="580" letter-spacing="0em"><tspan x="1017" y="88.7812" text-anchor="middle">Recent workout</tspan></text>
+<g clip-path="url(#clip0_1_3)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M50 104.157H90.719V97.407H50V104.157Z" fill="#F2A711"/>
+<path d="M83.9417 90.5054L83.936 70.2527C83.936 66.5267 82.4142 63.1517 79.9572 60.7082C77.5003 58.2647 74.1073 56.75 70.3617 56.75C66.6158 56.75 63.2228 58.2647 60.7658 60.7082C58.3088 63.1517 56.787 66.5267 56.787 70.2527C56.787 73.9787 58.3088 77.3537 60.7658 79.7972C63.2228 82.2407 66.6158 83.7527 70.3617 83.7527H70.3674C74.116 83.7527 77.1547 86.7767 77.1547 90.5054H70.3617C59.1238 90.5054 50 81.4307 50 70.2527C50 59.0747 59.1238 50 70.3617 50C81.5996 50 90.7231 59.0747 90.7231 70.2527V90.5054H83.9417Z" fill="white"/>
+<path d="M105.859 97.3721V76.714H110.138V93.5946H121.441V97.3721H105.859Z" fill="#F2A711"/>
+<path d="M128.994 97.6377C125.689 97.6377 123.387 95.7195 123.387 92.9158C123.387 89.9942 125.748 88.253 129.703 88.253C130.972 88.253 132.241 88.4596 133.451 88.8432V87.7513C133.451 85.9806 132.359 85.0658 130.204 85.0658C128.906 85.0658 127.46 85.4789 125.512 86.3348L124.036 83.3541C126.456 82.2326 128.67 81.7014 130.883 81.7014C135.044 81.7014 137.435 83.7672 137.435 87.3972V97.3721H133.451V96.3097C132.152 97.2245 130.765 97.6377 128.994 97.6377ZM127.253 92.8273C127.253 94.0078 128.345 94.7456 130.057 94.7456C131.385 94.7456 132.506 94.4209 133.451 93.7717V91.4698C132.447 91.0861 131.385 90.9091 130.204 90.9091C128.345 90.9091 127.253 91.6468 127.253 92.8273Z" fill="#F2A711"/>
+<path d="M156.667 89.6991C156.667 94.1258 153.185 97.5787 148.728 97.5787C147.194 97.5787 145.718 97.136 144.479 96.3392V97.3721H140.495V76.714L144.538 75.8286V83.2065C145.748 82.2917 147.253 81.79 148.846 81.79C153.214 81.79 156.667 85.2723 156.667 89.6991ZM148.197 85.2428C146.722 85.2428 145.453 85.7445 144.538 86.6889V92.7388C145.423 93.6241 146.751 94.1553 148.197 94.1553C150.735 94.1553 152.683 92.2371 152.683 89.6991C152.683 87.1611 150.706 85.2428 148.197 85.2428Z" fill="#F2A711"/>
+<path d="M157.843 95.5424L159.849 92.8568C161.65 94.0373 163.214 94.598 164.837 94.598C166.637 94.598 167.818 93.9488 167.818 92.9749C167.818 92.1781 167.227 91.7354 165.899 91.5288L162.948 91.0861C159.908 90.6139 158.285 89.1088 158.285 86.6299C158.285 83.6492 160.764 81.7604 164.689 81.7604C166.932 81.7604 169.087 82.4097 171.005 83.6787L169.057 86.2757C167.375 85.2723 165.87 84.8001 164.306 84.8001C162.83 84.8001 161.886 85.3904 161.886 86.3052C161.886 87.1316 162.476 87.5447 163.981 87.7513L166.932 88.194C169.942 88.6367 171.625 90.2008 171.625 92.5912C171.625 95.4834 168.762 97.6672 164.896 97.6672C162.092 97.6672 159.584 96.9294 157.843 95.5424Z" fill="#F2A711"/>
+<path d="M108.774 56.2375H107.606L104.602 57.4993V59.1322L106.938 58.1488V69.2266H108.774V56.2375Z" fill="white"/>
+<path d="M109.979 69.2266H112L113.52 65.4226H119.323L120.825 69.2266H122.939L117.636 56.2375H115.356L109.979 69.2266ZM114.169 63.8083L116.431 58.1117L118.693 63.8083H114.169Z" fill="white"/>
+<path d="M123.643 69.2266H132.635V67.6493H126.183L129.836 64.2722C131.838 62.398 132.431 61.3775 132.431 59.8744C132.431 57.6477 130.596 56.0705 127.963 56.0705C126.313 56.0705 124.774 56.7014 123.328 58.0003L124.385 59.2621C125.683 58.1116 126.665 57.6663 127.926 57.6663C129.483 57.6663 130.633 58.6312 130.633 59.9858C130.633 61.0249 130.151 61.8042 128.649 63.233L123.643 67.8906V69.2266Z" fill="white"/>
+<path d="M143.444 65.6453C143.444 64.2165 142.425 63.0846 140.849 62.6207C142.165 62.0084 142.962 60.9136 142.962 59.5961C142.962 57.5179 141.09 56.0334 138.494 56.0334C136.696 56.0334 135.046 56.7385 133.766 58.0189L135.009 59.2065C136.158 58.0746 137.104 57.6478 138.457 57.6478C139.977 57.6478 141.127 58.5385 141.127 59.726C141.127 61.0249 139.996 61.9898 138.476 61.9898H137.493V63.4929H138.624C140.404 63.4929 141.572 64.3279 141.572 65.5526C141.572 66.8886 140.33 67.8164 138.513 67.8164C137.011 67.8164 135.954 67.3896 134.86 66.3319L133.618 67.5009C134.86 68.7442 136.603 69.4122 138.531 69.4122C141.386 69.4122 143.444 67.8349 143.444 65.6453Z" fill="white"/>
+<path d="M148.32 67.0741C149.804 68.5771 151.806 69.4121 153.883 69.4121C156.979 69.4121 159.055 67.8163 159.055 65.4226C159.055 63.4 157.813 62.2681 155.069 61.8228L152.974 61.4888C151.305 61.2105 150.657 60.7095 150.657 59.6518C150.657 58.5013 151.788 57.722 153.475 57.722C154.921 57.722 156.311 58.2415 157.72 59.3178L158.796 57.8333C157.331 56.7014 155.421 56.0705 153.567 56.0705C150.675 56.0705 148.784 57.5364 148.784 59.8002C148.784 61.6744 149.952 62.7877 152.325 63.1774L154.494 63.5299C156.386 63.8454 157.127 64.4206 157.127 65.5711C157.127 66.8514 155.848 67.7421 153.975 67.7421C152.362 67.7421 150.916 67.0741 149.507 65.701L148.32 67.0741Z" fill="white"/>
+<path d="M161.484 66.8886C161.484 68.5215 162.467 69.3936 164.302 69.3936C164.858 69.3936 165.563 69.2823 166.064 69.1153V67.5566C165.6 67.7236 165.229 67.7793 164.71 67.7793C163.709 67.7793 163.32 67.4267 163.32 66.4618V61.3404H166.101V59.7817H163.32V56.9241L161.484 57.3694V59.7817H159.482V61.3404H161.484V66.8886Z" fill="white"/>
+<path d="M169.29 59.7817H167.436V65.701C167.436 67.8906 168.937 69.4121 171.107 69.4121C172.256 69.4121 173.202 69.0225 173.943 68.2802V69.2266H175.797V59.7817H173.943V66.5546C173.424 67.3525 172.627 67.7978 171.626 67.7978C170.198 67.7978 169.29 66.87 169.29 65.3855V59.7817Z" fill="white"/>
+<path d="M185.216 69.2266H187.051V55.8293L185.197 56.2375V60.561C184.381 59.9672 183.399 59.6332 182.361 59.6332C179.654 59.6332 177.559 61.7671 177.559 64.4949C177.559 67.2411 179.654 69.375 182.323 69.375C183.417 69.375 184.419 69.0039 185.216 68.3359V69.2266ZM179.376 64.4763C179.376 62.6207 180.766 61.229 182.583 61.229C183.621 61.229 184.585 61.6373 185.197 62.3424V66.6288C184.567 67.3524 183.64 67.7607 182.583 67.7607C180.766 67.7607 179.376 66.3319 179.376 64.4763Z" fill="white"/>
+<path d="M190.166 58.2601C190.796 58.2601 191.316 57.7406 191.316 57.1097C191.316 56.4788 190.796 55.9592 190.166 55.9592C189.536 55.9592 189.035 56.4788 189.035 57.1097C189.035 57.7406 189.536 58.2601 190.166 58.2601ZM191.093 59.7817H189.239V69.2266H191.093V59.7817Z" fill="white"/>
+<path d="M192.854 64.4948C192.854 67.2597 195.024 69.4121 197.768 69.4121C200.512 69.4121 202.662 67.2597 202.662 64.4948C202.662 61.7486 200.512 59.5961 197.768 59.5961C195.024 59.5961 192.854 61.7486 192.854 64.4948ZM197.768 67.7792C196.025 67.7792 194.671 66.3319 194.671 64.4948C194.671 62.6578 196.043 61.229 197.768 61.229C199.473 61.229 200.845 62.6578 200.845 64.4948C200.845 66.3319 199.473 67.7792 197.768 67.7792Z" fill="white"/>
+</g>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="17" letter-spacing="0em"><tspan x="865" y="74.3636" text-anchor="end">Last updated {{ last_update }}</tspan></text>
+<text fill="white" fill-opacity="0.5" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="17" letter-spacing="0em"><tspan x="865" y="94.3636" text-anchor="end">github.com/blueset/gymrun</tspan></text>
+{% if exercises | length > 0 %}
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="50" y="167.188">{{ exercises[0]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="198.278">{{ exercises[0]["sets"] }}</tspan></text>
+{% endif %}
+{% if exercises | length > 1 %}
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="620" y="167.188">{{ exercises[1]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="198.278">{{ exercises[1]["sets"] }}</tspan></text>
+{% endif %}
+{% if exercises | length > 2 %}
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="50" y="261.188">{{ exercises[2]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="292.278">{{ exercises[2]["sets"] }}</tspan></text>
+{% endif %}
+{% if exercises | length > 3 %}
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="620" y="261.188">{{ exercises[3]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="292.278">{{ exercises[3]["sets"] }}</tspan></text>
+{% endif %}
+{% if exercises | length > 4 %}
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="50" y="355.188">{{ exercises[4]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="386.278">{{ exercises[4]["sets"] }}</tspan></text>
+{% endif %}
+{% if exercises | length > 5 %}
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="620" y="355.188">S{{ exercises[5]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="386.278">{{ exercises[5]["sets"] }}</tspan></text>
+{% endif %}
+{% if exercises | length > 6 %}
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="50" y="449.188">{{ exercises[6]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="480.278">{{ exercises[6]["sets"] }}</tspan></text>
+{% endif %}
+{% if exercises | length > 7 %}
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="620" y="449.188">{{ exercises[7]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="480.278">{{ exercises[7]["sets"] }}</tspan></text>
+{% endif %}
+{% if exercises | length > 8 %}
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="50" y="543.188">{{ exercises[8]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="574.278">{{ exercises[8]["sets"] }}</tspan></text>
+{% endif %}
+{% if exercises | length > 9 %}
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="620" y="543.188">{{ exercises[9]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="574.278">{{ exercises[9]["sets"] }}</tspan></text>
+{% endif %}
+<text fill="white" fill-opacity="0.35" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="14" letter-spacing="0em"><tspan x="50" y="625.182">Data collected via GymRun app and Dropbox backup. 1A23 Studio is not affiliated with GymRun Team or Dropbox Inc.</tspan></text>
+<defs>
+<clipPath id="clip0_1_3">
+<rect width="152.581" height="54" fill="white" transform="translate(50 50)"/>
+</clipPath>
+</defs>
+</svg>

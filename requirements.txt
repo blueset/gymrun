@@ -1,0 +1,10 @@
+flask
+python-dotenv
+pyzipper
+humanize
+selenium
+Mastodon.py
+gpsoauth
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
