@@ -1,6 +1,7 @@
 import os
 import pprint
 import threading
+import logging
 from flask import Flask, request, url_for, make_response, send_file
 from dotenv import load_dotenv
 import urllib3
@@ -10,6 +11,8 @@ from drive import CHANNEL_ID, get_file, get_file_id, get_service, resubscribe
 from gymrun import process_db
 from post import toot_card
 from render import build_svg, load_data, render
+
+logger = logging.getLogger('gunicorn.error')
 
 class ReverseProxied(object):
     '''Wrap the application in this middleware and configure the 
@@ -64,22 +67,29 @@ def get_url(route):
 
     return url
 
-def store_cursor(cursor):
+def store(key, channel):
     with shelve.open(SHELVE_PATH) as db:
-        db[f"cursors"] = cursor
+        db[key] = channel
         db.sync()
 
-def get_cursor():
+def get(key):
     with shelve.open(SHELVE_PATH) as db:
-        if f"cursors" not in db:
+        if key not in db:
             return None
-        return db[f"cursors"]
+        return db[key]
 
-def process_file():
+def process_file(force=False):
     service = get_service()
     file_id = get_file_id(service)
     file = get_file(service, file_id)
     data = process_db(file)
+
+    new_time = max(map(lambda x: x.time, sum(data, [])))
+    last_time = get("last_time")
+    if not force and last_time and new_time <= last_time:
+        return ""
+    store("last_time", new_time)
+
     render(data)
     return toot_card(data)
 
@@ -98,7 +108,7 @@ def account():
     if request.method == 'POST':
         refresh_key = request.form.get('refresh_key')
         if refresh_key == FORCE_REFRESH_KEY:
-            outcome = process_file()
+            outcome = process_file(force=True)
 
     return (f'<form method="post"><input type="password" name="refresh_key" /><input type="submit" value="Refresh"></form>'
             f'<pre>{pprint.pformat(outcome, indent=2)}</pre>')
@@ -110,6 +120,8 @@ def card_svg():
     svg = build_svg(data, unit)
     response = make_response(svg)
     response.headers['Content-Type'] = 'image/svg+xml'
+    response.add_etag()
+    response.headers["Cache-Control"] = "public, max-age=3600, stale-if-error=60"
     return response
 
 @app.route("/card.png")
@@ -118,7 +130,8 @@ def card_png():
 
 @app.route("/webhook", methods=['POST'])
 def webhook():
-    if request.headers.get("x-goog-channel-id") == CHANNEL_ID:
+    logging.info(f"webhook {repr(request.headers)}")
+    if request.headers.get("x-goog-channel-id").startswith(CHANNEL_ID):
         threading.Thread(target=process_file).start()
     return ""
 

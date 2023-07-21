@@ -21,7 +21,7 @@ chrome_options.add_argument(f"--force-device-scale-factor=2")
 hti = html2image.Html2Image()
 Unit = Literal["lbs", "kg", "native"]
 
-with open("./static/InterVariable.woff2", "rb") as f:
+with open("./static/Archivo[wdth,wght].ttf", "rb") as f:
     font_b64 = base64.b64encode(f.read()).decode("utf-8")
 
 def format_set(exercises: List[Exercise], unit: Unit) -> str:
@@ -54,6 +54,9 @@ def load_data() -> List[List[Exercise]]:
     with open("data.pickle", "rb") as f:
         return pickle.load(f)
 
+def calculate_stretch(name: str) -> str:
+    return f"{int(min(100, max(0, len(name) * -2.1 + 194)))}%"  # Archivo
+
 def build_svg(data: List[List[Exercise]], unit: Unit = "native") -> str:
     with open("template.svg") as f:
         template = Template(f.read())
@@ -62,7 +65,8 @@ def build_svg(data: List[List[Exercise]], unit: Unit = "native") -> str:
 
     exercises = [{
         "name": e[0].name,
-        "sets": format_set(e, unit)
+        "sets": format_set(e, unit),
+        "stretch": calculate_stretch(e[0].name),
     } for e in data]
     
     svg = template.render(exercises=exercises, last_update=last_time_word, font_b64=font_b64)

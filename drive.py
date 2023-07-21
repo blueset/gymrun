@@ -1,4 +1,5 @@
 import os
+import random
 import shelve
 import time
 from dotenv import load_dotenv
@@ -18,16 +19,16 @@ app_id = "com.imperon.android.gymapp"
 app_signature = "c74f618b352df7d73627daa2f010c4bfc79faa21"
 device_id = "0242AC110002"
 
-def store_channel(channel):
+def store(key, channel):
     with shelve.open(SHELVE_PATH) as db:
-        db[f"channel"] = channel
+        db[key] = channel
         db.sync()
 
-def get_channel():
+def get(key):
     with shelve.open(SHELVE_PATH) as db:
-        if f"channel" not in db:
+        if key not in db:
             return None
-        return db[f"channel"]
+        return db[key]
 
 def get_token():
     auth = gpsoauth.perform_oauth(
@@ -63,21 +64,21 @@ def subscribe(service, url):
     body = {
         'kind': 'api#channel',
         'resourceId': file_id,
-        'id': CHANNEL_ID,
+        'id': f"{CHANNEL_ID}{random.randint(0, 100000)}",
         'token': file_id,
         'type': 'web_hook',
         'address': url,
         'expiration': int(time.time() + 24*60*60) * 1000 # 1 day
     }
     channel = service.files().watch(fileId=file_id, body=body).execute()
-    store_channel(channel)
+    store("channel", channel)
     return channel
 
 def unsubscribe(service):
-    channel = get_channel()
+    channel = get("channel")
     if channel:
         service.channels().stop(body=channel).execute()
-        store_channel(None)
+        store("channel", None)
 
 def resubscribe(service, url):
     unsubscribe(service)

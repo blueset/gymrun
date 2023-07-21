@@ -1,16 +1,16 @@
 <svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
 <style>
 @font-face {
-font-family: "Inter Variable";
+font-family: "Archivo";
 font-weight: 100 900;
 font-display: swap;
 font-style: normal;
-src: url("data:application/font-woff;charset=utf-8;base64,{{ font_b64 }}") format("woff2-variations");
+src: url("data:application/font-ttf;charset=utf-8;base64,{{ font_b64 }}");
 }
 </style>
 <rect width="1200" height="675" fill="#00161F"/>
 <rect x="884" y="50" width="266" height="54" rx="8" fill="#F2A711"/>
-<text fill="#00161F" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="32" font-weight="580" letter-spacing="0em"><tspan x="1017" y="88.7812" text-anchor="middle">Recent workout</tspan></text>
+<text fill="#00161F" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="32" font-weight="580" letter-spacing="0em"><tspan x="1017" y="88.7812" text-anchor="middle">Recent workout</tspan></text>
 <g clip-path="url(#clip0_1_3)">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M50 104.157H90.719V97.407H50V104.157Z" fill="#F2A711"/>
 <path d="M83.9417 90.5054L83.936 70.2527C83.936 66.5267 82.4142 63.1517 79.9572 60.7082C77.5003 58.2647 74.1073 56.75 70.3617 56.75C66.6158 56.75 63.2228 58.2647 60.7658 60.7082C58.3088 63.1517 56.787 66.5267 56.787 70.2527C56.787 73.9787 58.3088 77.3537 60.7658 79.7972C63.2228 82.2407 66.6158 83.7527 70.3617 83.7527H70.3674C74.116 83.7527 77.1547 86.7767 77.1547 90.5054H70.3617C59.1238 90.5054 50 81.4307 50 70.2527C50 59.0747 59.1238 50 70.3617 50C81.5996 50 90.7231 59.0747 90.7231 70.2527V90.5054H83.9417Z" fill="white"/>
@@ -29,49 +29,49 @@ src: url("data:application/font-woff;charset=utf-8;base64,{{ font_b64 }}") forma
 <path d="M190.166 58.2601C190.796 58.2601 191.316 57.7406 191.316 57.1097C191.316 56.4788 190.796 55.9592 190.166 55.9592C189.536 55.9592 189.035 56.4788 189.035 57.1097C189.035 57.7406 189.536 58.2601 190.166 58.2601ZM191.093 59.7817H189.239V69.2266H191.093V59.7817Z" fill="white"/>
 <path d="M192.854 64.4948C192.854 67.2597 195.024 69.4121 197.768 69.4121C200.512 69.4121 202.662 67.2597 202.662 64.4948C202.662 61.7486 200.512 59.5961 197.768 59.5961C195.024 59.5961 192.854 61.7486 192.854 64.4948ZM197.768 67.7792C196.025 67.7792 194.671 66.3319 194.671 64.4948C194.671 62.6578 196.043 61.229 197.768 61.229C199.473 61.229 200.845 62.6578 200.845 64.4948C200.845 66.3319 199.473 67.7792 197.768 67.7792Z" fill="white"/>
 </g>
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="17" letter-spacing="0em"><tspan x="865" y="74.3636" text-anchor="end">Last updated {{ last_update }}</tspan></text>
-<text fill="white" fill-opacity="0.5" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="17" letter-spacing="0em"><tspan x="865" y="94.3636" text-anchor="end">github.com/blueset/gymrun</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="17" letter-spacing="0em"><tspan x="865" y="74.3636" text-anchor="end">Last updated {{ last_update }}</tspan></text>
+<text fill="white" fill-opacity="0.5" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="17" letter-spacing="0em"><tspan x="865" y="94.3636" text-anchor="end">github.com/blueset/gymrun</tspan></text>
 {% if exercises | length > 0 %}
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="50" y="167.188">{{ exercises[0]["name"] }}</tspan></text>
-<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="198.278">{{ exercises[0]["sets"] }}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[0]["stretch"] }}" letter-spacing="0em"><tspan x="50" y="167.188">{{ exercises[0]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="198.278">{{ exercises[0]["sets"] }}</tspan></text>
 {% endif %}
 {% if exercises | length > 1 %}
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="620" y="167.188">{{ exercises[1]["name"] }}</tspan></text>
-<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="198.278">{{ exercises[1]["sets"] }}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[1]["stretch"] }}" letter-spacing="0em"><tspan x="620" y="167.188">{{ exercises[1]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="198.278">{{ exercises[1]["sets"] }}</tspan></text>
 {% endif %}
 {% if exercises | length > 2 %}
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="50" y="261.188">{{ exercises[2]["name"] }}</tspan></text>
-<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="292.278">{{ exercises[2]["sets"] }}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[2]["stretch"] }}" letter-spacing="0em"><tspan x="50" y="261.188">{{ exercises[2]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="292.278">{{ exercises[2]["sets"] }}</tspan></text>
 {% endif %}
 {% if exercises | length > 3 %}
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="620" y="261.188">{{ exercises[3]["name"] }}</tspan></text>
-<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="292.278">{{ exercises[3]["sets"] }}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[3]["stretch"] }}" letter-spacing="0em"><tspan x="620" y="261.188">{{ exercises[3]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="292.278">{{ exercises[3]["sets"] }}</tspan></text>
 {% endif %}
 {% if exercises | length > 4 %}
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="50" y="355.188">{{ exercises[4]["name"] }}</tspan></text>
-<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="386.278">{{ exercises[4]["sets"] }}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[4]["stretch"] }}" letter-spacing="0em"><tspan x="50" y="355.188">{{ exercises[4]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="386.278">{{ exercises[4]["sets"] }}</tspan></text>
 {% endif %}
 {% if exercises | length > 5 %}
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="620" y="355.188">S{{ exercises[5]["name"] }}</tspan></text>
-<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="386.278">{{ exercises[5]["sets"] }}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[5]["stretch"] }}" letter-spacing="0em"><tspan x="620" y="355.188">S{{ exercises[5]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="386.278">{{ exercises[5]["sets"] }}</tspan></text>
 {% endif %}
 {% if exercises | length > 6 %}
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="50" y="449.188">{{ exercises[6]["name"] }}</tspan></text>
-<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="480.278">{{ exercises[6]["sets"] }}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[6]["stretch"] }}" letter-spacing="0em"><tspan x="50" y="449.188">{{ exercises[6]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="480.278">{{ exercises[6]["sets"] }}</tspan></text>
 {% endif %}
 {% if exercises | length > 7 %}
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="620" y="449.188">{{ exercises[7]["name"] }}</tspan></text>
-<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="480.278">{{ exercises[7]["sets"] }}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[7]["stretch"] }}" letter-spacing="0em"><tspan x="620" y="449.188">{{ exercises[7]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="480.278">{{ exercises[7]["sets"] }}</tspan></text>
 {% endif %}
 {% if exercises | length > 8 %}
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="50" y="543.188">{{ exercises[8]["name"] }}</tspan></text>
-<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="574.278">{{ exercises[8]["sets"] }}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[8]["stretch"] }}" letter-spacing="0em"><tspan x="50" y="543.188">{{ exercises[8]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="574.278">{{ exercises[8]["sets"] }}</tspan></text>
 {% endif %}
 {% if exercises | length > 9 %}
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="25" font-weight="600" letter-spacing="0em"><tspan x="620" y="543.188">{{ exercises[9]["name"] }}</tspan></text>
-<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="574.278">{{ exercises[9]["sets"] }}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[9]["stretch"] }}" letter-spacing="0em"><tspan x="620" y="543.188">{{ exercises[9]["name"] }}</tspan></text>
+<text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="574.278">{{ exercises[9]["sets"] }}</tspan></text>
 {% endif %}
-<text fill="white" fill-opacity="0.35" xml:space="preserve" style="white-space: pre" font-family="Inter Variable" font-size="14" letter-spacing="0em"><tspan x="50" y="625.182">Data collected via GymRun app and Google Drive backup. 1A23 Studio is not affiliated with GymRun Team or Alphabet Inc.</tspan></text>
+<text fill="white" fill-opacity="0.35" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="14" letter-spacing="0em"><tspan x="50" y="625.182">Data collected via GymRun app and Google Drive backup. 1A23 Studio is not affiliated with GymRun Team or Alphabet Inc.</tspan></text>
 <defs>
 <clipPath id="clip0_1_3">
 <rect width="152.581" height="54" fill="white" transform="translate(50 50)"/>
