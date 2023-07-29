@@ -2,6 +2,7 @@ import os
 from typing import List
 from dotenv import load_dotenv
 from mastodon import Mastodon
+from retry import retry
 
 from gymrun import Exercise
 
@@ -22,6 +23,7 @@ def caption(exercises: List[List[Exercise]]) -> str:
         groups.append(f"{exercise[0].name}\n{sets}")
     return "Recent workout\n\n" + "\n\n".join(groups)
 
+@retry(delay=1, backoff=2, max_delay=4, tries=5)
 def toot_card(exercises: List[List[Exercise]]):
     text = caption(exercises)
     media = mastodon.media_post("card.png", mime_type="image/png", description=text)

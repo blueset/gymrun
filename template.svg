@@ -52,7 +52,7 @@ src: url("data:application/font-ttf;charset=utf-8;base64,{{ font_b64 }}");
 <text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="50" y="386.278">{{ exercises[4]["sets"] }}</tspan></text>
 {% endif %}
 {% if exercises | length > 5 %}
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[5]["stretch"] }}" letter-spacing="0em"><tspan x="620" y="355.188">S{{ exercises[5]["name"] }}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="25" font-weight="600" font-stretch="{{ exercises[5]["stretch"] }}" letter-spacing="0em"><tspan x="620" y="355.188">{{ exercises[5]["name"] }}</tspan></text>
 <text fill="white" fill-opacity="0.75" xml:space="preserve" style="white-space: pre" font-family="Archivo" font-size="21" font-weight="350" letter-spacing="0em"><tspan x="620" y="386.278">{{ exercises[5]["sets"] }}</tspan></text>
 {% endif %}
 {% if exercises | length > 6 %}
