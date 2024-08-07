@@ -12,7 +12,7 @@ from datetime import datetime
 class Exercise:
     time: datetime
     name: str
-    unit: Literal["lbs", "kg"]
+    unit: Literal["lbs", "kg", None]
     weight: float
     reps: int
     set: int
@@ -45,9 +45,9 @@ def parse_data(data: List[Tuple[int, str, str, str]]) -> List[List[Exercise]]:
     for d in data:
         time = datetime.fromtimestamp(d[0])
         property_pairs = dict(map(lambda x: tuple(map(float, x.split("-"))), d[1].split(",")))
-        set_number = int(property_pairs.get(3, 0))
-        weight = property_pairs.get(4, 0)
-        reps = int(property_pairs.get(5, 0))
+        reps = int(property_pairs.get(5, 0) + property_pairs.get(52, 0))
+        name = d[2]
+        unit = None if d[3] is None else "lbs" if d[3] == "2" else "kg"
         name = d[2]
         unit = "lbs" if d[3] == "2" else "kg"
         if unit == "lbs":

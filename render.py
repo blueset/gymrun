@@ -26,11 +26,19 @@ with open("./static/Archivo[wdth,wght].ttf", "rb") as f:
 
 def format_set(exercises: List[Exercise], unit: Unit) -> str:
     if unit == "native":
-        return ", ".join(map(lambda x: f"{x.weight}{x.unit}×{x.reps}", exercises))
+        sets = []
+        for exercise in exercises:
+            if exercise.unit is None:
+                sets.append(f"×{exercise.reps}")
+            else:
+                sets.append(f"{exercise.weight}{exercise.unit}×{exercise.reps}")
+        return ", ".join(sets)
     elif unit == "lbs":
         sets = []
         for exercise in exercises:
-            if exercise.unit == "kg":
+            if exercise.unit is None:
+                sets.append(f"×{exercise.reps}")
+            elif exercise.unit == "kg":
                 weight = round(kg_to_lbs(exercise.weight))
             else:
                 weight = exercise.weight
@@ -39,7 +47,9 @@ def format_set(exercises: List[Exercise], unit: Unit) -> str:
     else:
         sets = []
         for exercise in exercises:
-            if exercise.unit == "lbs":
+            if exercise.unit is None:
+                sets.append(f"×{exercise.reps}")
+            elif exercise.unit == "lbs":
                 weight = round(lbs_to_kg(exercise.weight))
             else:
                 weight = exercise.weight
