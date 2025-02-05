@@ -137,10 +137,14 @@ def card_png():
 def webhook():
     logging.info(f"webhook {repr(request.headers)}")
     
-    if "value" in request.json:
-        threading.Thread(target=process_file).start()
+    try:
+        if "value" in request.json:
+            threading.Thread(target=process_file).start()
+    except Exception as e:
+        logging.error(f"webhook {e}")
 
     try:
+        print("webhook qs", request.query_string)
         qs = request.query_string.decode()
         if qs.startswith("validationtoken="):
             return qs[len("validationtoken="):]
@@ -150,8 +154,8 @@ def webhook():
     return ""
 
 @app.route("/resubscribe")
-def resub():
-    register_subscription(get_url("webhook"))
+async def resub():
+    await register_subscription(get_url("webhook"))
     return "OK"
 
 if __name__=='__main__':
