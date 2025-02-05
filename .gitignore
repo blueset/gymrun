@@ -4,3 +4,5 @@ card.png
 card.svg
 data.pickle
 shelve.db
+token_cache.bin
+out.png

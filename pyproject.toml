@@ -1,0 +1,23 @@
+[project]
+name = "gymrun"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "flask[async]>=3.1.0",
+    "google-api-python-client>=2.160.0",
+    "google-auth-httplib2>=0.2.0",
+    "google-auth-oauthlib>=1.2.1",
+    "gpsoauth>=1.1.1",
+    "gunicorn>=23.0.0",
+    "humanize>=4.11.0",
+    "mastodon-py>=1.8.1",
+    "misskey-py>=4.1.0",
+    "msal>=1.31.1",
+    "msgraph-sdk>=1.18.0",
+    "python-dotenv>=1.0.1",
+    "pyzipper>=0.3.6",
+    "retry>=0.9.2",
+    "selenium>=4.28.1",
+]

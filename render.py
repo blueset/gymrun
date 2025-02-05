@@ -5,24 +5,24 @@ import pathlib
 import base64
 
 import humanize
-import html2image
 from jinja2 import Template
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 from gymrun import Exercise, lbs_to_kg, kg_to_lbs
+import subprocess
 
 chrome_options = Options()
+chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--headless')
 chrome_options.add_argument("--remote-debugging-port=9222")
 chrome_options.add_argument(f"--force-device-scale-factor=2")
 
-hti = html2image.Html2Image()
 Unit = Literal["lbs", "kg", "native"]
 
 with open("./static/Archivo[wdth,wght].ttf", "rb") as f:
-    font_b64 = base64.b64encode(f.read()).decode("utf-8")
+    font_b64 = "data:application/font-ttf;charset=utf-8;base64," + base64.b64encode(f.read()).decode("utf-8")
 
 def format_set(exercises: List[Exercise], unit: Unit) -> str:
     if unit == "native":
@@ -65,9 +65,9 @@ def load_data() -> List[List[Exercise]]:
         return pickle.load(f)
 
 def calculate_stretch(name: str) -> str:
-    return f"{int(min(100, max(0, len(name) * -2.1 + 194)))}%"  # Archivo
+    return f"{int(min(100, max(0, len(name) * -2.1 + 194)))}"  # Archivo
 
-def build_svg(data: List[List[Exercise]], unit: Unit = "native") -> str:
+def build_svg(data: List[List[Exercise]], unit: Unit = "native", font_url = False) -> str:
     with open("template.svg") as f:
         template = Template(f.read())
     last_time = max(map(lambda x: x.time, sum(data, [])))
@@ -79,11 +79,20 @@ def build_svg(data: List[List[Exercise]], unit: Unit = "native") -> str:
         "stretch": calculate_stretch(e[0].name),
     } for e in data]
     
-    svg = template.render(exercises=exercises, last_update=last_time_word, font_b64=font_b64)
+    svg = template.render(exercises=exercises, last_update=last_time_word, font_b64="./static/Archivo[wdth,wght].ttf" if font_url else font_b64)
     
     return svg
 
 def render(data: List[List[Exercise]], unit: Unit = "native"):
+    store_data(data)
+    svg = build_svg(data, unit, font_url=True)
+    with open("card.svg", "w") as f:
+        f.write(svg)
+
+    # Run the inkscape command to convert SVG to PNG
+    subprocess.run(["inkscape", "card.svg", "--export-filename=card.png"])
+
+def render_chrome(data: List[List[Exercise]], unit: Unit = "native"):
     store_data(data)
     svg = build_svg(data, unit)
     with open("card.svg", "w") as f:

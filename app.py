@@ -1,3 +1,4 @@
+import asyncio
 import os
 import pprint
 import threading
@@ -6,9 +7,9 @@ from flask import Flask, request, url_for, make_response, send_file
 from dotenv import load_dotenv
 import urllib3
 import shelve
-from drive import CHANNEL_ID, get_file, get_file_id, get_service, resubscribe
+from onedrive import get_zip, register_subscription
 
-from gymrun import process_db
+from gymrun import process_zip
 from post import toot_card
 from render import build_svg, load_data, render
 
@@ -78,11 +79,9 @@ def get(key):
             return None
         return db[key]
 
-def process_file(force=False):
-    service = get_service()
-    file_id = get_file_id(service)
-    file = get_file(service, file_id)
-    data = process_db(file)
+async def process_file(force=False):
+    zip = await get_zip()
+    data = process_zip(zip)
 
     new_time = max(map(lambda x: x.time, sum(data, [])))
     last_time = get("last_time")
@@ -91,7 +90,13 @@ def process_file(force=False):
     store("last_time", new_time)
 
     render(data)
-    return toot_card(data)
+    return toot_card(data, new_time)
+
+def run_async_process_file():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(process_file())
+    loop.close()
 
 @app.route('/')
 def index():
@@ -102,13 +107,13 @@ def index():
     return html
 
 @app.route('/account', methods=['GET', 'POST'])
-def account():
+async def account():
     outcome = load_data()
     # refresh on post
     if request.method == 'POST':
         refresh_key = request.form.get('refresh_key')
         if refresh_key == FORCE_REFRESH_KEY:
-            outcome = process_file(force=True)
+            outcome = await process_file(force=True)
 
     return (f'<form method="post"><input type="password" name="refresh_key" /><input type="submit" value="Refresh"></form>'
             f'<pre>{pprint.pformat(outcome, indent=2)}</pre>')
@@ -131,14 +136,22 @@ def card_png():
 @app.route("/webhook", methods=['POST'])
 def webhook():
     logging.info(f"webhook {repr(request.headers)}")
-    if request.headers.get("x-goog-channel-id").startswith(CHANNEL_ID):
+    
+    if "value" in request.json:
         threading.Thread(target=process_file).start()
+
+    try:
+        qs = request.query_string.decode()
+        if qs.startswith("validationtoken="):
+            return qs[len("validationtoken="):]
+    except Exception as e:
+        logging.error(f"webhook {e}")
+
     return ""
 
 @app.route("/resubscribe")
 def resub():
-    service = get_service()
-    resubscribe(service, get_url("webhook"))
+    register_subscription(get_url("webhook"))
     return "OK"
 
 if __name__=='__main__':

@@ -1,14 +1,18 @@
 # GymRun Poster
-Monitor [GymRun] automatic backups to [Google Drive], and generate poster for the most recent workout.
 
-Poster can be accessible as a dynamic SVG image, and is posted to Mastodon.
+Monitor [GymRun] automatic backups to [OneDrive], and generate poster for the most recent workout.
+
+Poster can be accessible as a dynamic SVG image, and is posted to Mastodon or Misskey.
 
 ## Dependencies
+
 - Python 3
-- `requirements.txt`
-- Chromium and ChromeDriver (for Selenium)
+- [uv](https://docs.astral.sh/uv/)
+- Inkscape
 
 ## Setup
+
+<!--
 1. Setup GymRun to automatically backup to Google Drive.
 2. Use [GPSOauth] to get the master token of your account.
     ```python
@@ -29,7 +33,17 @@ Poster can be accessible as a dynamic SVG image, and is posted to Mastodon.
 4. Create a `.env` file as the example.
 5. Run the Flask server at `app.py`.
 
+[Google Drive]: https://www.google.com/drive/
+[GPSOauth]: https://github.com/simon-weber/gpsoauth/
+-->
+
+1. Setup GymRun to automatically backup to OneDrive.
+2. Create an application at [Microsoft Entra].
+3. Create an application in your Mastodon or Misskey instance.
+4. Create a `.env` file as the example.
+
 ## Card
+
 Card SVG is available at `{Root URL}/card.svg`, where the timestamp is updated updated upon request.
 Suffix with `?unit=native`, `?unit=kg`, or `?unit=lbs` to change the units.
 
@@ -37,11 +51,13 @@ Card PNG is available at `{Root URL}/card.png`, where the timestamp as of when t
 Only native unit is available.
 
 [GymRun]: https://play.google.com/store/apps/details?id=com.imperon.android.gymapp
-[Google Drive]: https://www.google.com/drive/
-[GPSOauth]: https://github.com/simon-weber/gpsoauth/
+[OneDrive]: https://onedrive.live.com/
+[Microsoft Entra]: https://entra.microsoft.com/#view/Microsoft_AAD_IAM/StartboardApplicationsMenuBlade/~/AppAppsPreview
 
 ## Demo
+
 ![Demo](https://labs.1a23.com/gymrun/card.svg)
 
 ## License
+
 MIT
