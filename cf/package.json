@@ -1,0 +1,24 @@
+{
+	"name": "cf",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"test": "vitest",
+		"cf-typegen": "wrangler types"
+	},
+	"devDependencies": {
+		"@cloudflare/vitest-pool-workers": "^0.8.19",
+		"@types/react": "^19.2.7",
+		"typescript": "^5.5.2",
+		"vitest": "~3.2.0",
+		"wrangler": "^4.53.0"
+	},
+	"dependencies": {
+		"@takumi-rs/image-response": "^0.57.3",
+		"cloudflare-worker-sqlite-wasm": "^0.0.1-alpha.5",
+		"react": "^19.2.3"
+	}
+}

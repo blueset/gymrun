@@ -4,12 +4,6 @@ Monitor [GymRun] automatic backups to [OneDrive], and generate poster for the mo
 
 Poster can be accessible as a dynamic SVG image, and is posted to Mastodon or Misskey.
 
-## Dependencies
-
-- Python 3
-- [uv](https://docs.astral.sh/uv/)
-- Inkscape
-
 ## Setup
 
 <!--
@@ -44,11 +38,8 @@ Poster can be accessible as a dynamic SVG image, and is posted to Mastodon or Mi
 
 ## Card
 
-Card SVG is available at `{Root URL}/card.svg`, where the timestamp is updated updated upon request.
+Card PNG is available at `{Root URL}/card.png`, where the timestamp is updated updated upon request.
 Suffix with `?unit=native`, `?unit=kg`, or `?unit=lbs` to change the units.
-
-Card PNG is available at `{Root URL}/card.png`, where the timestamp as of when the PNG was generated.
-Only native unit is available.
 
 [GymRun]: https://play.google.com/store/apps/details?id=com.imperon.android.gymapp
 [OneDrive]: https://onedrive.live.com/
@@ -56,7 +47,7 @@ Only native unit is available.
 
 ## Demo
 
-![Demo](https://labs.1a23.com/gymrun/card.svg)
+![Demo](https://labs.1a23.com/gymrun/card.png)
 
 ## License
 

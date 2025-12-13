@@ -139,7 +139,7 @@ def webhook():
     
     try:
         if "value" in request.json:
-            threading.Thread(target=process_file).start()
+            threading.Thread(target=run_async_process_file).start()
     except Exception as e:
         logging.error(f"webhook {e}")
 
