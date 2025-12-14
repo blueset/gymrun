@@ -47,7 +47,9 @@ Suffix with `?unit=native`, `?unit=kg`, or `?unit=lbs` to change the units.
 
 ## Demo
 
-![Demo](https://labs.1a23.com/gymrun/card.png)
+| Native units | Metric units | Imperial units |
+|:--:|:--:|:--:|
+| ![Demo (Native units)](https://labs.1a23.com/gymrun/card.png) | ![Demo (Metric units)](https://labs.1a23.com/gymrun/card.png?unit=kg) | ![Demo (Imperial units)](https://labs.1a23.com/gymrun/card.png?unit=lbs) |
 
 ## License
 

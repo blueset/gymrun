@@ -118,7 +118,7 @@ export async function render(entries: ExerciseGroups, unit: string) {
 				<header tw="flex flex-row justify-between w-full">
 					<img src={logoBase64} alt="Logo" tw="h-14" />
 					<div tw="flex flex-row gap-6">
-						<div tw="flex flex-col items-end justify-center text-right gap-1">
+						<div tw="flex flex-col items-end text-lg justify-center text-right">
 							<span tw="">Last updated {timeAgo}</span>
 							<span tw="text-white/50">github.com/blueset/gymrun</span>
 						</div>
