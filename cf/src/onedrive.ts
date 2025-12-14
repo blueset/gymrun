@@ -119,7 +119,7 @@ export async function registerSubscription(
     const subscription: SubscriptionRequest = {
         changeType: 'updated',
         notificationUrl: notificationUrl,
-        resource: '/me/drive/root:/Apps/GymRun',
+        resource: '/me/drive/root',
         expirationDateTime: expirationDateTime,
     };
     
