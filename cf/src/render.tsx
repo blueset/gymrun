@@ -19,36 +19,52 @@ function mapFontName(stretchValue: number): string {
 	return 'Archivo_ExtraCondensed';
 }
 
-function WeightBox({ weight, unit, reps, sameWeight, index }: { weight: number; unit: string, reps: number, sameWeight: boolean, index: number }) {
-  return (
-    <Fragment>
-      {!sameWeight && weight && unit && <span tw={`bg-[#F2A711] text-[#00161F] leading-none h-6 min-w-6 text-center pt-0.5 px-2 mr-2 ${index > 0 ? 'ml-2' : ''}`} style={{ borderRadius: '6px' }}>{weight} {unit}</span>}
-      <span
-        tw={`border border-[#F2A711] leading-none h-6 min-w-6 text-center text-[#F2A711] ${sameWeight ? 'border-l-0' : ''}`}
-        style={{ borderRadius: '6px', ...(sameWeight ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 } : {}) }}
-      >
-        {reps}
-      </span>
-    </Fragment>
-  )
+function WeightBox({
+	weight,
+	unit,
+	reps,
+	sameWeight,
+	index,
+}: {
+	weight: number;
+	unit: string;
+	reps: number;
+	sameWeight: boolean;
+	index: number;
+}) {
+	return (
+		<Fragment>
+			{(!sameWeight && weight && unit) ? (
+				<span
+					tw={`bg-[#F2A711] text-[#00161F] leading-none h-6 min-w-6 text-center pt-0.5 px-2 mr-2 ${index > 0 ? 'ml-2' : ''}`}
+					style={{ borderRadius: '6px' }}
+				>
+					{weight} {unit}
+				</span>
+			) : null}
+			<span
+				tw={`border border-[#F2A711] leading-none h-6 min-w-6 text-center text-[#F2A711] ${sameWeight ? 'border-l-0' : ''} px-1`}
+				style={{ borderRadius: '6px', ...(sameWeight ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 } : {}) }}
+			>
+				{reps}
+			</span>
+		</Fragment>
+	);
 }
 
 function FormattedSet({ set, unit }: { set: Exercise[]; unit: string }) {
 	return set.map((exercise, index) => {
 		let sameWeight = index > 0 && exercise.weight === set[index - 1].weight && exercise.unit === set[index - 1].unit;
-		if (!exercise.unit)
-			return (
-        <WeightBox key={index} weight={0} unit="" reps={exercise.reps} sameWeight={sameWeight} index={index} />
-			);
+		if (!exercise.unit) return <WeightBox key={index} weight={0} unit="" reps={exercise.reps} sameWeight={sameWeight} index={index} />;
 		if (unit === 'lbs') {
 			const weightInLbs = exercise.unit === 'kg' ? Math.round(kgToLbs(exercise.weight)) : exercise.weight;
-      return <WeightBox key={index} weight={weightInLbs} unit="lbs" reps={exercise.reps} sameWeight={sameWeight} index={index} />
+			return <WeightBox key={index} weight={weightInLbs} unit="lbs" reps={exercise.reps} sameWeight={sameWeight} index={index} />;
 		} else if (unit === 'kg') {
 			const weightInKg = exercise.unit === 'lbs' ? Math.round(lbsToKg(exercise.weight)) : exercise.weight;
-      return <WeightBox key={index} weight={weightInKg} unit="kg" reps={exercise.reps} sameWeight={sameWeight} index={index} />
+			return <WeightBox key={index} weight={weightInKg} unit="kg" reps={exercise.reps} sameWeight={sameWeight} index={index} />;
 		} else {
 			return (
-        <WeightBox key={index} weight={exercise.weight} unit={exercise.unit} reps={exercise.reps} sameWeight={sameWeight} index={index} />
+				<WeightBox key={index} weight={exercise.weight} unit={exercise.unit} reps={exercise.reps} sameWeight={sameWeight} index={index} />
 			);
 		}
 	});

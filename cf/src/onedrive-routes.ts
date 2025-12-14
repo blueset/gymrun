@@ -11,7 +11,7 @@ import { tootCard } from './toot';
  * @param env Environment with Azure credentials and storage
  * @param force Force update even if data hasn't changed
  */
-export async function processFile(env: EnvWithAzure, force: boolean = false): Promise<string> {
+export async function processFile(env: EnvWithAzure, force: boolean = false): Promise<string | void> {
     const zip = await getZip(env);
     const data: ExerciseGroups = await processZip(zip);
 
@@ -20,9 +20,8 @@ export async function processFile(env: EnvWithAzure, force: boolean = false): Pr
     if (force || newTime > lastTime) {
         setInStorage(env, 'lastUpdated', newTime);
         setInStorage(env, 'data', data);
+        return await tootCard(data, newTime, env);
     }
-
-    return await tootCard(data, newTime, env);
 }
 
 export async function handleOneDriveRoutes(
