@@ -16,6 +16,7 @@ import { handleAuthRoutes } from './auth-routes';
 import { handleOneDriveRoutes } from './onedrive-routes';
 import { persistStorage } from './storage';
 import { handleRenderRoutes } from './render-routes';
+import { registerSubscription } from './onedrive';
 
 // ============================================================================
 // Main Worker Handler
@@ -77,6 +78,22 @@ export default {
 		} finally {
 			// Always persist storage changes at the end of the request
 			ctx.waitUntil(persistStorage(azureEnv));
+		}
+	},
+
+	// Scheduled handler for cron jobs
+	async scheduled(event, env, ctx): Promise<void> {
+		const azureEnv = env as EnvWithAzure;
+		try {
+			// Renew the OneDrive webhook subscription
+			const webhookUrl = 'https://labs.1a23.com/gymrun/webhook';
+			const result = await registerSubscription(azureEnv, webhookUrl);
+			console.log('Subscription renewed:', result.id, 'expires:', result.expirationDateTime);
+		} catch (err) {
+			console.error('Failed to renew subscription:', err);
+			throw err; // Re-throw to mark the scheduled event as failed
+		} finally {
+			await persistStorage(azureEnv);
 		}
 	},
 } satisfies ExportedHandler<Env>;

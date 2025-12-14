@@ -146,7 +146,7 @@ export async function renewSubscription(
     env: EnvWithAzure,
     subscriptionId: string
 ): Promise<SubscriptionResponse> {
-    const expirationDate = new Date(Date.now() + 60 * 24 * 60 * 60 * 1000);
+    const expirationDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     const expirationDateTime = expirationDate.toISOString();
     
     const response = await callGraphApi(env, `/subscriptions/${subscriptionId}`, {

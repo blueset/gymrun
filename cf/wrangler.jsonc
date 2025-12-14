@@ -42,6 +42,11 @@
 		"AZURE_REDIRECT_URI": "https://labs.1a23.com/gymrun/oauth_redir",
 		"AZURE_TENANT_ID": "fc939f88-19aa-494e-983a-42d0c4f61fc8",
 		"MISSKEY_BASE_URL": "https://s.1a23.studio"
+	},
+	// Cron trigger to renew OneDrive webhook subscription monthly
+	// Runs at 3:17 AM UTC on the 15th of each month (off-peak time)
+	"triggers": {
+		"crons": ["17 3 15 * *"]
 	}
 	// Azure AD credentials - set these as secrets using:
 	// wrangler secret put AZURE_TENANT_ID
