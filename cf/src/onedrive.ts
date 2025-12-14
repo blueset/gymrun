@@ -112,8 +112,8 @@ export async function registerSubscription(
     env: EnvWithAzure,
     notificationUrl: string
 ): Promise<SubscriptionResponse> {
-    // Calculate expiration date (max 60 days for drive items)
-    const expirationDate = new Date(Date.now() +  60 * 24 * 60 * 60 * 1000);
+    // Calculate expiration date (max 30 days for drive items)
+    const expirationDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     const expirationDateTime = expirationDate.toISOString();
     
     const subscription: SubscriptionRequest = {
