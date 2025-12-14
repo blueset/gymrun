@@ -117,7 +117,7 @@ export async function registerSubscription(
     const expirationDateTime = expirationDate.toISOString();
     
     const subscription: SubscriptionRequest = {
-        changeType: 'updated,created',
+        changeType: 'updated',
         notificationUrl: notificationUrl,
         resource: '/me/drive/root:/Apps/GymRun',
         expirationDateTime: expirationDateTime,
