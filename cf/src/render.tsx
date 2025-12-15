@@ -9,14 +9,7 @@ import { Exercise, ExerciseGroups, kgToLbs, lbsToKg } from './gymrun';
 import { Fragment } from 'react/jsx-runtime';
 
 function calculateStretch(name: string): number {
-	return Math.round(Math.min(100, Math.max(0, name.length * -2.1 + 194)));
-}
-
-function mapFontName(stretchValue: number): string {
-	if (stretchValue >= 100) return 'Archivo';
-	if (stretchValue >= 87.5) return 'Archivo_SemiCondensed';
-	if (stretchValue >= 75) return 'Archivo_Condensed';
-	return 'Archivo_ExtraCondensed';
+	return Math.round(Math.min(100, Math.max(0, name.length * -2.2 + 194)));
 }
 
 function WeightBox({
@@ -136,7 +129,7 @@ export async function render(entries: ExerciseGroups, unit: string) {
 					{entries.map((entry, index) => (
 						<div key={index} tw="flex flex-col gap-1">
 							<span
-								tw={`text-[1.6rem] font-semibold font-['${mapFontName(calculateStretch(entry[0].name))}']`}
+								tw={`text-[1.6rem] font-semibold`}
 								style={{ fontVariationSettings: `"wdth" ${calculateStretch(entry[0].name)}` }}
 							>
 								{entry[0].name}
