@@ -8,8 +8,41 @@ import labsLogo from './labs.svg';
 import { Exercise, ExerciseGroups, kgToLbs, lbsToKg } from './gymrun';
 import { Fragment } from 'react/jsx-runtime';
 
+const regularFallbackAdvanceWidth = 672;
+const regularAsciiAdvanceWidth = [209,273,374,582,510,950,692,209,355,355,407,625,277,333,277,294,573,521,567,573,555,571,573,553,574,573,296,296,625,625,625,578,1005,682,698,728,734,677,612,796,736,267,559,662,536,847,736,788,665,788,727,673,606,731,648,924,680,655,635,296,294,296,625,485,187,545,567,519,567,548,280,556,563,225,223,514,225,860,563,570,567,567,332,510,297,562,504,723,513,504,498,353,245,353,62];
+const condensedFallbackAdvanceWidth = 616;
+const condensedAsciiAdvanceWidth = [130, 242, 296, 440, 326, 619, 464, 170, 313, 313, 369, 467, 190, 240, 190, 256, 389, 340, 397, 390, 370, 403, 387, 343, 378, 387, 220, 220, 467, 467, 467, 377, 660, 434, 453, 485, 490, 432, 381, 508, 486, 201, 365, 465, 366, 609, 488, 519, 442, 519, 475, 421, 420, 479, 435, 646, 458, 477, 438, 275, 256, 275, 467, 316, 129, 388, 385, 365, 385, 385, 213, 360, 378, 176, 173, 353, 176, 580, 379, 387, 385, 385, 226, 326, 202, 379, 307, 497, 343, 307, 335, 316, 183, 316, 467];
+
+const columnWidth = 20000;
+
 function calculateStretch(name: string): number {
-	return Math.round(Math.min(100, Math.max(0, name.length * -2.2 + 194)));
+	const regularWidth = name.split('').reduce((sum, char) => {
+		const charCode = char.charCodeAt(0);
+		if (charCode >= 32 && charCode <= 126) {
+			return sum + regularAsciiAdvanceWidth[charCode - 32];
+		} else {
+			// console.log('Non-ASCII character in name:', char);
+			return sum + regularFallbackAdvanceWidth;
+		}
+	}, 0);
+	const condensedWidth = name.split('').reduce((sum, char) => {
+		const charCode = char.charCodeAt(0);
+		if (charCode >= 32 && charCode <= 126) {
+			return sum + condensedAsciiAdvanceWidth[charCode - 32];
+		} else {
+			// console.log('Non-ASCII character in name:', char);
+			return sum + condensedFallbackAdvanceWidth;
+		}
+	}, 0);
+
+	// Map stretch linearly between condensed (62) and regular (100) to hit the target column width.
+	const widthRange = regularWidth - condensedWidth;
+	if (widthRange === 0) return 100;
+
+	
+	const stretch = 62 + ((columnWidth - condensedWidth) * (100 - 62)) / widthRange;
+	// console.log({ name, regularWidth, condensedWidth, stretch });
+	return Math.max(62, Math.min(100, Math.round(stretch)));
 }
 
 function WeightBox({
@@ -146,7 +179,6 @@ export async function render(entries: ExerciseGroups, unit: string) {
 			</div>
 		),
 		{
-			// fetchedResources: await fetchedResources,
 			width: 1200,
 			height: 675,
 			fonts: [
