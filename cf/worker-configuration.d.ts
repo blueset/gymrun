@@ -7,6 +7,7 @@ declare namespace Cloudflare {
 	}
 	interface Env {
 		STORAGE: KVNamespace;
+		UPDATE_COORDINATOR: DurableObjectNamespace<import("./src/update-coordinator").GymrunUpdateCoordinator>;
 		AZURE_TENANT_ID: string;
 		AZURE_CLIENT_ID: string;
 		AZURE_CLIENT_SECRET: string;

@@ -17,6 +17,7 @@ import { handleOneDriveRoutes } from './onedrive-routes';
 import { persistStorage } from './storage';
 import { handleRenderRoutes } from './render-routes';
 import { registerSubscription } from './onedrive';
+import { GymrunUpdateCoordinator } from './update-coordinator';
 
 // ============================================================================
 // Main Worker Handler
@@ -112,3 +113,6 @@ export default {
 		}
 	},
 } satisfies ExportedHandler<Env>;
+
+// Export Durable Object class
+export { GymrunUpdateCoordinator };

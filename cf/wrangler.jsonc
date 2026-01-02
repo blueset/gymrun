@@ -19,6 +19,22 @@
 			"id": "94b5d1bf0a5b4454ac99802a536db254"
 		}
 	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "UPDATE_COORDINATOR",
+				"class_name": "GymrunUpdateCoordinator"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_classes": [
+				"GymrunUpdateCoordinator"
+			]
+		}
+	],
 	"routes": [
 		{
 			"pattern": "labs.1a23.com/gymrun*",

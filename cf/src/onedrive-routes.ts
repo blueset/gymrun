@@ -1,27 +1,22 @@
 import {
 	type EnvWithAzure,
 } from './graph-auth';
-import { getFromStorage, setInStorage } from './storage';
-import { getZip, registerSubscription } from './onedrive';
-import { processZip, getMaxTime, type ExerciseGroups } from './gymrun';
-import { tootCard } from './toot';
+import { getFromStorage } from './storage';
+import { registerSubscription } from './onedrive';
 
 /**
- * Process the GymRun backup file from OneDrive and store the data
+ * Process the GymRun backup file from OneDrive and store the data.
+ * Delegates to Durable Object to prevent race conditions from concurrent requests.
  * @param env Environment with Azure credentials and storage
  * @param force Force update even if data hasn't changed
  */
 export async function processFile(env: EnvWithAzure, force: boolean = false): Promise<string | void> {
-    const zip = await getZip(env);
-    const data: ExerciseGroups = await processZip(zip);
-
-    const newTime = getMaxTime(data);
-    const lastTime = await getFromStorage(env, 'lastUpdated') || 0;
-    if (force || newTime > lastTime) {
-        setInStorage(env, 'lastUpdated', newTime);
-        setInStorage(env, 'data', data);
-        return await tootCard(data, newTime, env);
-    }
+    // Get the Durable Object stub - use a fixed ID since we only need one coordinator
+    const id = env.UPDATE_COORDINATOR.idFromName('gymrun-coordinator');
+    const stub = env.UPDATE_COORDINATOR.get(id);
+    
+    // Delegate to the Durable Object which will serialize concurrent requests
+    return await stub.processFile(env, force);
 }
 
 export async function handleOneDriveRoutes(
@@ -94,7 +89,7 @@ export async function handleOneDriveRoutes(
 
 			if (refreshKey === env.REFRESH_KEY) {
 				try {
-					message = await processFile(env, /* force */ true);
+					message = await processFile(env, /* force */ true) || 'No update needed.';
 				} catch (err) {
 					console.error('Error processing file:', err);
 					message = 'Error processing file.';
