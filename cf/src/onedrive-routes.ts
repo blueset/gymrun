@@ -16,7 +16,8 @@ export async function processFile(env: EnvWithAzure, force: boolean = false): Pr
     const stub = env.UPDATE_COORDINATOR.get(id);
     
     // Delegate to the Durable Object which will serialize concurrent requests
-    return await stub.processFile(env, force);
+    // Note: Don't pass env directly to avoid DataCloneError with non-serializable KvNamespace
+    return await stub.processFile(force);
 }
 
 export async function handleOneDriveRoutes(

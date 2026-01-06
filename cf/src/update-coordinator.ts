@@ -14,14 +14,16 @@ export class GymrunUpdateCoordinator extends DurableObject {
 	 * Process the GymRun backup file with coordination to prevent duplicate posts.
 	 * This method is called via RPC from the Worker and serializes all concurrent updates.
 	 * 
-	 * @param env Environment with Azure credentials and storage
 	 * @param force Force update even if data hasn't changed
 	 * @returns Result message from tootCard if update was performed, undefined otherwise
 	 */
-	async processFile(env: EnvWithAzure, force: boolean = false): Promise<string | void> {
+	async processFile(force: boolean = false): Promise<string | void> {
 		// Use blockConcurrencyWhile to ensure atomic check-update-post operation
 		// If multiple requests arrive concurrently, they will be queued and processed one at a time
 		return await this.ctx.blockConcurrencyWhile(async () => {
+			// Access env through this.env to avoid serialization issues with KvNamespace
+			const env = this.env as EnvWithAzure;
+			
 			// Fetch the latest data from OneDrive
 			const zip = await getZip(env);
 			const data: ExerciseGroups = await processZip(zip);
