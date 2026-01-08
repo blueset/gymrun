@@ -1,6 +1,6 @@
 import { DurableObject } from 'cloudflare:workers';
 import { type EnvWithAzure } from './graph-auth';
-import { getFromStorage, setInStorage } from './storage';
+import { getFromStorage, persistStorage, setInStorage } from './storage';
 import { getZip } from './onedrive';
 import { processZip, getMaxTime, type ExerciseGroups } from './gymrun';
 import { tootCard } from './toot';
@@ -21,22 +21,29 @@ export class GymrunUpdateCoordinator extends DurableObject {
 		// Use blockConcurrencyWhile to ensure atomic check-update-post operation
 		// If multiple requests arrive concurrently, they will be queued and processed one at a time
 		return await this.ctx.blockConcurrencyWhile(async () => {
-			// Access env through this.env to avoid serialization issues with KvNamespace
-			const env = this.env as EnvWithAzure;
-			
-			// Fetch the latest data from OneDrive
-			const zip = await getZip(env);
-			const data: ExerciseGroups = await processZip(zip);
+			try {
+				// Access env through this.env to avoid serialization issues with KvNamespace
+				const env = this.env as EnvWithAzure;
+				
+				// Fetch the latest data from OneDrive
+				const zip = await getZip(env);
+				const data: ExerciseGroups = await processZip(zip);
 
-			const newTime = getMaxTime(data);
-			const lastTime = await getFromStorage(env, 'lastUpdated') || 0;
+				const newTime = getMaxTime(data);
+				const lastTime = await getFromStorage(env, 'lastUpdated') || 0;
 
-			// Only update and post if data is newer (or force flag is set)
-			if (force || newTime > lastTime) {
-				console.log(`New data found (last: ${lastTime}, new: ${newTime}, force: ${force}), posting update.`);
-				setInStorage(env, 'lastUpdated', newTime);
-				setInStorage(env, 'data', data);
-				return await tootCard(data, newTime, env);
+				// Only update and post if data is newer (or force flag is set)
+				if (force || newTime > lastTime) {
+					console.log(`New data found (last: ${lastTime}, new: ${newTime}, force: ${force}), posting update.`);
+					setInStorage(env, 'lastUpdated', newTime);
+					setInStorage(env, 'data', data);
+					return await tootCard(data, newTime, env);
+				}
+			} catch (err) {
+				console.error('Error processing GymRun file:', err);
+				throw err;
+			} finally {
+				await persistStorage(this.env as EnvWithAzure);
 			}
 		});
 	}
