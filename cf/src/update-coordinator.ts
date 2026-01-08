@@ -33,6 +33,7 @@ export class GymrunUpdateCoordinator extends DurableObject {
 
 			// Only update and post if data is newer (or force flag is set)
 			if (force || newTime > lastTime) {
+				console.log(`New data found (last: ${lastTime}, new: ${newTime}, force: ${force}), posting update.`);
 				setInStorage(env, 'lastUpdated', newTime);
 				setInStorage(env, 'data', data);
 				return await tootCard(data, newTime, env);
