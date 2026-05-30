@@ -483,8 +483,8 @@ export function parseData(rawData: RawExerciseRow[], muscles: Record<number, str
             unit,
             weight,
             reps,
-            musclePrimary: row.musclePrimary.map((id) => parseInt(id)).filter(id => !isNaN(id)).map(id => muscles[id]).filter(tag => tag !== undefined),
-            muscleSecondary: row.muscleSecondary.map((id) => parseInt(id)).filter(id => !isNaN(id)).map(id => muscles[id]).filter(tag => tag !== undefined),
+            musclePrimary: row.musclePrimary?.map((id) => parseInt(id)).filter(id => !isNaN(id)).map(id => muscles[id]).filter(tag => tag !== undefined) ?? [],
+            muscleSecondary: row.muscleSecondary?.map((id) => parseInt(id)).filter(id => !isNaN(id)).map(id => muscles[id]).filter(tag => tag !== undefined) ?? [],
             set: setNumber,
         };
     });
