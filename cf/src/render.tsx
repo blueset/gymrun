@@ -171,8 +171,8 @@ function buildMuscleHeatMap(entries: ExerciseGroups): Partial<Record<Slug, strin
 
 	for (const group of entries) {
 		for (const exercise of group) {
-			addPoints(exercise.musclePrimary as unknown as string[], 2);
-			addPoints(exercise.muscleSecondary as unknown as string[], 1);
+			addPoints(exercise.musclePrimary ?? [], 2);
+			addPoints(exercise.muscleSecondary ?? [], 1);
 		}
 	}
 
