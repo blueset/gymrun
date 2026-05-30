@@ -1,5 +1,4 @@
 import { ImageResponse } from '@takumi-rs/image-response/wasm';
-import module from '@takumi-rs/wasm/takumi_wasm_bg.wasm';
 import Archivo from './Archivo.woff2';
 import ArchivoExC from './ArchivoExtraCondensed-Medium.woff2';
 import ArchivoC from './ArchivoCondensed-Medium.woff2';
@@ -7,6 +6,10 @@ import ArchivoSemC from './ArchivoSemiCondensed-Medium.woff2';
 import labsLogo from './labs.svg';
 import { Exercise, ExerciseGroups, kgToLbs, lbsToKg } from './gymrun';
 import { Fragment } from 'react/jsx-runtime';
+import { getBodyPartSvgDataUrl, SLUG_MAPPING } from './body';
+import { frontIntrinsicWidth, frontIntrinsicHeight } from "./data/bodyFront";
+import { backIntrinsicWidth, backIntrinsicHeight } from "./data/bodyBack";
+import { Slug } from './data/types';
 
 const regularFallbackAdvanceWidth = 672;
 const regularAsciiAdvanceWidth = [209,273,374,582,510,950,692,209,355,355,407,625,277,333,277,294,573,521,567,573,555,571,573,553,574,573,296,296,625,625,625,578,1005,682,698,728,734,677,612,796,736,267,559,662,536,847,736,788,665,788,727,673,606,731,648,924,680,655,635,296,294,296,625,485,187,545,567,519,567,548,280,556,563,225,223,514,225,860,563,570,567,567,332,510,297,562,504,723,513,504,498,353,245,353,62];
@@ -21,7 +24,6 @@ function calculateStretch(name: string): number {
 		if (charCode >= 32 && charCode <= 126) {
 			return sum + regularAsciiAdvanceWidth[charCode - 32];
 		} else {
-			// console.log('Non-ASCII character in name:', char);
 			return sum + regularFallbackAdvanceWidth;
 		}
 	}, 0);
@@ -128,6 +130,62 @@ function formatTimeAgo(date: Date): string {
 	}
 }
 
+// Heat map gradient stops (low -> high intensity) as [r, g, b].
+const heatMapStops: [number, number, number][] = [
+	[30, 120, 136], // #1e7888 dim teal (low usage)
+	[173, 121, 19], // rgb(173, 121, 19) amber accent
+	// [242, 167, 17], // #F2A711 amber accent (medium usage)
+	// [229, 85, 77], // #e1554d hot red (high usage)
+	[234, 101, 94], // rgb(234, 101, 94) hot red (high usage)
+];
+
+function lerp(a: number, b: number, t: number): number {
+	return Math.round(a + (b - a) * t);
+}
+
+function heatMapColor(intensity: number): string {
+	const t = Math.max(0, Math.min(1, intensity));
+	const segments = heatMapStops.length - 1;
+	const scaled = t * segments;
+	const index = Math.min(segments - 1, Math.floor(scaled));
+	const localT = scaled - index;
+	const [r1, g1, b1] = heatMapStops[index];
+	const [r2, g2, b2] = heatMapStops[index + 1];
+	return `rgb(${lerp(r1, r2, localT)}, ${lerp(g1, g2, localT)}, ${lerp(b1, b2, localT)})`;
+}
+
+/**
+ * Build a heat map of muscle slugs to CSS colors based on exercise frequency.
+ * Each primary muscle counts as 2 points, each secondary muscle as 1 point.
+ */
+function buildMuscleHeatMap(entries: ExerciseGroups): Partial<Record<Slug, string>> {
+	const points = new Map<Slug, number>();
+
+	const addPoints = (muscles: string[], weight: number) => {
+		for (const muscle of muscles) {
+			const slug = SLUG_MAPPING[muscle];
+			if (!slug) continue;
+			points.set(slug, (points.get(slug) ?? 0) + weight);
+		}
+	};
+
+	for (const group of entries) {
+		for (const exercise of group) {
+			addPoints(exercise.musclePrimary as unknown as string[], 2);
+			addPoints(exercise.muscleSecondary as unknown as string[], 1);
+		}
+	}
+
+	const maxPoints = Math.max(0, ...points.values());
+	const muscleParts: Partial<Record<Slug, string>> = {};
+	if (maxPoints === 0) return muscleParts;
+
+	for (const [slug, value] of points) {
+		muscleParts[slug] = heatMapColor(value / maxPoints);
+	}
+	return muscleParts;
+}
+
 export async function render(entries: ExerciseGroups, unit: string) {
 	const logoBase64 = 'data:image/svg+xml,' + encodeURIComponent(String.fromCharCode(...new Uint8Array(labsLogo)));
 	const lastUpdated = entries
@@ -138,9 +196,11 @@ export async function render(entries: ExerciseGroups, unit: string) {
 		}, new Date(0));
 	const timeAgo = formatTimeAgo(lastUpdated);
 
+	const muscleParts = buildMuscleHeatMap(entries);
+
 	return new ImageResponse(
 		(
-			<div tw="bg-[#00161F] w-full h-full text-white p-14 flex flex-col gap-4">
+			<div tw="bg-[#00161F] w-full h-full text-white p-14 flex flex-col gap-4" style={{ fontFamily: 'Archivo, sans-serif' }}>
 				<header tw="flex flex-row justify-between w-full">
 					<img src={logoBase64} alt="Logo" tw="h-14" />
 					<div tw="flex flex-row gap-6">
@@ -158,20 +218,35 @@ export async function render(entries: ExerciseGroups, unit: string) {
 						</div>
 					</div>
 				</header>
-				<main tw="grid grid-cols-2 flex-grow content-center gap-4">
-					{entries.map((entry, index) => (
-						<div key={index} tw="flex flex-col gap-1">
-							<span
-								tw={`text-[1.6rem] font-semibold`}
-								style={{ fontVariationSettings: `"wdth" ${calculateStretch(entry[0].name)}` }}
-							>
-								{entry[0].name}
-							</span>
-							<span tw="text-xl text-white/75 flex">
-								<FormattedSet set={entry} unit={unit} />
-							</span>
+				<main tw="grid grid-cols-2 gap-4 py-8 content-center">
+					<section tw="grid grid-cols-1 flex-grow content-center gap-4">
+						{entries.map((entry, index) => (
+							<div key={index} tw="flex flex-col gap-1">
+								<span
+									tw={`text-[1.6rem] font-semibold`}
+									style={{ fontVariationSettings: `"wdth" ${calculateStretch(entry[0].name)}` }}
+								>
+									{entry[0].name}
+								</span>
+								<span tw="text-xl text-white/75 flex">
+									<FormattedSet set={entry} unit={unit} />
+								</span>
+							</div>
+						))}
+					</section>
+					<section tw="w-full h-full relative min-h-[750px]">
+						<div tw="w-[55%] absolute left-0 h-full flex items-start">
+						<img src={getBodyPartSvgDataUrl('front', muscleParts)} alt="Body Front" 
+								 style={{ width: "100%", aspectRatio: `${frontIntrinsicWidth} / ${frontIntrinsicHeight}` }}
+						/>
 						</div>
-					))}
+						<div tw="w-[55%] absolute right-0 h-full flex items-end">
+						<img src={getBodyPartSvgDataUrl('back', muscleParts)} alt="Body Back" 
+								 style={{ width: "100%", aspectRatio: `${backIntrinsicWidth} / ${backIntrinsicHeight}` }}
+						/>
+						</div>
+						
+					</section>
 				</main>
 				<footer tw="text-white/50">
 					Data collected via GymRun app and OneDrive backup. 1A23 Studio is not affiliated with GymRun Team or Microsoft Corporation.
@@ -180,14 +255,13 @@ export async function render(entries: ExerciseGroups, unit: string) {
 		),
 		{
 			width: 1200,
-			height: 675,
+			// height: 1000,
 			fonts: [
 				{ font: 'Archivo', data: Archivo },
 				{ font: 'Archivo ExtraCondensed', data: ArchivoExC },
 				{ font: 'Archivo Condensed', data: ArchivoC },
 				{ font: 'Archivo SemiCondensed', data: ArchivoSemC },
 			],
-			module,
 		}
 	);
 }

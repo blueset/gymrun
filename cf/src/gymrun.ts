@@ -23,6 +23,8 @@ export interface Exercise {
 	weight: number;
 	reps: number;
 	set: number;
+	musclePrimary: number[];
+	muscleSecondary: number[];
 }
 
 export type ExerciseGroups = Exercise[][];
@@ -375,13 +377,15 @@ interface RawExerciseRow {
     data: string;
     xlabel: string;
     unit: string | null;
+		musclePrimary: string[];
+		muscleSecondary: string[];
 }
 
 /**
  * Read exercise data from the SQLite database
  * Returns data from the most recent workout
  */
-export async function readSqliteFile(sqliteData: Uint8Array): Promise<RawExerciseRow[]> {
+export async function readSqliteFile(sqliteData: Uint8Array): Promise<{ exercises: RawExerciseRow[], muscles: Record<number, string> }> {
     // Initialize sql.js with inline WASM for Cloudflare Workers
     const SQL = await initSqlJs({
         // Use instantiateWasm to provide the WASM module directly
@@ -396,7 +400,7 @@ export async function readSqliteFile(sqliteData: Uint8Array): Promise<RawExercis
     
     try {
         const query = `
-            SELECT entry.time, entry.data, exercise.xlabel, exercise.unit 
+            SELECT entry.time, entry.data, exercise.xlabel, exercise.unit, exercise.muscle_p, exercise.muscle_s
             FROM entry 
             INNER JOIN exercise ON entry.exercise = exercise._id 
             WHERE entry.time >= (SELECT time_start FROM workout ORDER BY time_start DESC LIMIT 1) 
@@ -406,7 +410,7 @@ export async function readSqliteFile(sqliteData: Uint8Array): Promise<RawExercis
         const results = db.exec(query);
         
         if (results.length === 0 || results[0].values.length === 0) {
-            return [];
+            return { exercises: [], muscles: {} };
         }
         
         const rows: RawExerciseRow[] = results[0].values.map((row: (string | number | Uint8Array | null)[]) => ({
@@ -414,9 +418,22 @@ export async function readSqliteFile(sqliteData: Uint8Array): Promise<RawExercis
             data: row[1] as string,
             xlabel: row[2] as string,
             unit: row[3] as string | null,
+						musclePrimary: (row[4] as string || "").split(','),
+						muscleSecondary: (row[5] as string || "").split(','),
         }));
         
-        return rows;
+				const muscleResults = db.exec(`SELECT _id, tag FROM label`);
+				const muscles: Record<number, string> = {};
+
+				if (muscleResults.length > 0) {
+					for (const row of muscleResults[0].values) {
+						const id = row[0] as number;
+						const tag = row[1] as string;
+						muscles[id] = tag;
+					}
+				}
+
+        return { exercises: rows, muscles };
     } finally {
         db.close();
     }
@@ -425,7 +442,7 @@ export async function readSqliteFile(sqliteData: Uint8Array): Promise<RawExercis
 /**
  * Parse raw database rows into structured Exercise objects
  */
-export function parseData(rawData: RawExerciseRow[]): ExerciseGroups {
+export function parseData(rawData: RawExerciseRow[], muscles: Record<number, string>): ExerciseGroups {
     const exercises: Exercise[] = rawData.map((row) => {
         // Parse the data field: "3-1,4-45.5,5-10" format
         // Where: 3=set number, 4=weight (kg), 5=reps, 52=extra reps
@@ -466,6 +483,8 @@ export function parseData(rawData: RawExerciseRow[]): ExerciseGroups {
             unit,
             weight,
             reps,
+            musclePrimary: row.musclePrimary.map((id) => parseInt(id)).filter(id => !isNaN(id)).map(id => muscles[id]).filter(tag => tag !== undefined),
+            muscleSecondary: row.muscleSecondary.map((id) => parseInt(id)).filter(id => !isNaN(id)).map(id => muscles[id]).filter(tag => tag !== undefined),
             set: setNumber,
         };
     });
@@ -503,16 +522,16 @@ export function parseData(rawData: RawExerciseRow[]): ExerciseGroups {
  */
 export async function processZip(zipData: Uint8Array): Promise<ExerciseGroups> {
     const sqliteFile = await getSqliteFile(zipData);
-    const rawData = await readSqliteFile(sqliteFile);
-    return parseData(rawData);
+    const { exercises, muscles } = await readSqliteFile(sqliteFile);
+    return parseData(exercises, muscles);
 }
 
 /**
  * Process a raw SQLite database file and return parsed exercise data
  */
 export async function processDb(sqliteData: Uint8Array): Promise<ExerciseGroups> {
-    const rawData = await readSqliteFile(sqliteData);
-    return parseData(rawData);
+    const { exercises, muscles } = await readSqliteFile(sqliteData);
+    return parseData(exercises, muscles);
 }
 
 /**
