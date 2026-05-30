@@ -218,8 +218,8 @@ export async function render(entries: ExerciseGroups, unit: string) {
 						</div>
 					</div>
 				</header>
-				<main tw="grid grid-cols-2 gap-4 py-8 content-center">
-					<section tw="grid grid-cols-1 flex-grow content-center gap-4">
+				<main tw="grid grid-cols-2 gap-4 content-center">
+					<section tw="grid grid-cols-1 flex-grow content-center gap-4 py-8">
 						{entries.map((entry, index) => (
 							<div key={index} tw="flex flex-col gap-1">
 								<span
