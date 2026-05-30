@@ -23,8 +23,8 @@ export interface Exercise {
 	weight: number;
 	reps: number;
 	set: number;
-	musclePrimary: number[];
-	muscleSecondary: number[];
+	musclePrimary: string[];
+	muscleSecondary: string[];
 }
 
 export type ExerciseGroups = Exercise[][];
