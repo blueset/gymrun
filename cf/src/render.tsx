@@ -234,7 +234,7 @@ export async function render(entries: ExerciseGroups, unit: string) {
 							</div>
 						))}
 					</section>
-					<section tw="w-full h-full relative min-h-[750px]">
+					<section tw="w-full h-full relative min-h-[650px]">
 						<div tw="w-[55%] absolute left-0 h-full flex items-start">
 						<img src={getBodyPartSvgDataUrl('front', muscleParts)} alt="Body Front" 
 								 style={{ width: "100%", aspectRatio: `${frontIntrinsicWidth} / ${frontIntrinsicHeight}` }}
