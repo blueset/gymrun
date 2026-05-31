@@ -46,9 +46,9 @@ async function handleRequest(request: Request, env: EnvWithAzure, ctx: Execution
 			'<label><input type="radio" id="tab-metric" name="unit-tab">Metric</label>' + 
 			'<label><input type="radio" id="tab-imperial" name="unit-tab">Imperial</label>' + 
 			'</p>' +
-			'<p id="native-p"><a href="./card.png" target="_blank"><img src="./card.png" width="1200" height="675" style="max-width: 100%;" alt="Social Card Preview (Native units)" /></a></p>' +
-			'<p id="metric-p"><a href="./card.png?unit=kg" target="_blank"><img src="./card.png?unit=kg" width="1200" height="675" style="max-width: 100%;" alt="Social Card Preview (Metric units)" /></a></p>' +
-			'<p id="imperial-p"><a href="./card.png?unit=lbs" target="_blank"><img src="./card.png?unit=lbs" width="1200" height="675" style="max-width: 100%;" alt="Social Card Preview (Imperial units)" /></a></p>' +
+			'<p id="native-p"><a href="./card.png" target="_blank"><img src="./card.png" width="1200" style="max-width: 100%;" alt="Social Card Preview (Native units)" /></a></p>' +
+			'<p id="metric-p"><a href="./card.png?unit=kg" target="_blank"><img src="./card.png?unit=kg" width="1200" style="max-width: 100%;" alt="Social Card Preview (Metric units)" /></a></p>' +
+			'<p id="imperial-p"><a href="./card.png?unit=lbs" target="_blank"><img src="./card.png?unit=lbs" width="1200" style="max-width: 100%;" alt="Social Card Preview (Imperial units)" /></a></p>' +
 			'<style>body:not(:has(#tab-native:checked)) #native-p, body:not(:has(#tab-metric:checked)) #metric-p, body:not(:has(#tab-imperial:checked)) #imperial-p { display: none; }</style>' +
 			'<p><a href="https://github.com/blueset/gymrun" target="_blank">https://github.com/blueset/gymrun</a></p>'
 		), {

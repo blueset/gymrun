@@ -12,6 +12,7 @@ function caption(exercise: ExerciseGroups): string {
 }
 
 export async function tootCard(exercise: ExerciseGroups, time: number, env: EnvWithAzure): Promise<string> {
+    return "";
     const text = caption(exercise);
     const imageResponse = await render(exercise, 'native');
     const imageBlob = await imageResponse.blob();

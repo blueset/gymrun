@@ -27,7 +27,7 @@ export async function getZip(env: EnvWithAzure): Promise<Uint8Array> {
     // List all files in the GymRun folder
     const response = await callGraphApi(
         env,
-        '/me/drive/root:/Apps/GymRun:/children'
+        '/me/drive/root:/Apps/GymRun:/children?$orderby=lastModifiedDateTime desc'
     );
     
     if (!response.ok) {
@@ -45,6 +45,11 @@ export async function getZip(env: EnvWithAzure): Promise<Uint8Array> {
     const zipFiles = data.value
         .filter(item => item.name.toLowerCase().endsWith('.zip'))
         .sort((a, b) => new Date(b.lastModifiedDateTime).getTime() - new Date(a.lastModifiedDateTime).getTime());
+
+    console.log(`Found ${zipFiles.length} ZIP files in the GymRun folder`);
+    for (const file of zipFiles) {
+        console.log(`- ${file.name} (id: ${file.id}, modified at ${file.lastModifiedDateTime})`);
+    }
     
     if (zipFiles.length === 0) {
         throw new Error('No ZIP files found in the GymRun folder');
@@ -52,6 +57,8 @@ export async function getZip(env: EnvWithAzure): Promise<Uint8Array> {
     
     // Get the newest file
     const newestFile = zipFiles[0];
+
+    console.log(`Newest file found: ${newestFile.name}, id: ${newestFile.id}, modified at ${newestFile.lastModifiedDateTime}`);
     
     // Get the file metadata with download URL
     const fileResponse = await callGraphApi(
@@ -79,6 +86,7 @@ export async function getZip(env: EnvWithAzure): Promise<Uint8Array> {
     }
     
     const arrayBuffer = await downloadResponse.arrayBuffer();
+    console.log(`Downloaded file: ${newestFile.name}, size: ${arrayBuffer.byteLength} bytes`);
     return new Uint8Array(arrayBuffer);
 }
 
